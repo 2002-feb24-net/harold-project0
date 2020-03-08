@@ -7,6 +7,7 @@ namespace harold_project0
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
+            //menu static call or object
         }
     }
 }
