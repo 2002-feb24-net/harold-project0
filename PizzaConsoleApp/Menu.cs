@@ -1,6 +1,6 @@
 using System;
 
-namespace harold_project0
+namespace PizzaConsoleApp
 {
     class Menu
     {
@@ -32,8 +32,8 @@ namespace harold_project0
             switch (input)
             {
                 case "1":
-                CarryOutOrDelivery();
-                Pizza.ShowOptions();
+                //CarryOutOrDelivery();
+                //Pizza.ShowOptions();
 
                 break;
 

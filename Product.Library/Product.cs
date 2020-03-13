@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 
-namespace harold_project0
+namespace Product.Library
 {
-    class Product
+    public class Product
     {
         // make an object to hold wings and prices, drinks and prices
         public Dictionary<string, decimal> ProductAndPrices

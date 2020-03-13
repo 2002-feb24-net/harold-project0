@@ -1,7 +1,8 @@
+
 using System;
 using System.Collections.Generic;
 
-namespace harold_project0
+namespace Product.Library
 {
     class Order
     {
@@ -13,7 +14,14 @@ namespace harold_project0
             get;
             set;
         }
-        public Order(Product productAndPrice)
+
+        public User WhoOrdered  // link each order to one specific customer
+        {
+            get;
+
+            set;
+        }
+        public Order(Product productAndPrice, User whoIsOrdering)
         {
             ProductAndPriceList.Add(productAndPrice);
             // should add to a list of Dictionaries
@@ -22,6 +30,8 @@ namespace harold_project0
             // need a list to spit out the line by line summary of the order
 
             // can total the prices to give the order total
+
+            WhoOrdered = whoIsOrdering;
         }
 
         public decimal Total

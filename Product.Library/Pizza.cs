@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 
-namespace harold_project0
+namespace Product.Library   
 {
-    class Pizza : Product
-    {
+   // class Pizza : Product
+    //{
         /*public Dictionary<string, decimal> 21`sAndPrices
         {
             get
@@ -22,4 +22,4 @@ namespace harold_project0
         }*/
 
     }
-}
+//}
