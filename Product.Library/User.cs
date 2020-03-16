@@ -17,9 +17,30 @@ namespace Product.Library
             set { }
         }
 
+        internal List<Order> OrderHistory
+        {
+            get { return OrderHistory; }
+            set { 
+            foreach (var newOrder in value)
+                {
+                    AddOrderToHistory(newOrder);
+                }
+            }
+            
+        }
+
         public User(string username, string password )
         {
 
+
+        }
+
+        internal void AddOrderToHistory(Order newOrder)
+        {
+            if (newOrder != null)
+            {
+                OrderHistory.Add(newOrder);
+            }
         }
 
         private string InputUserValidation(string username)
@@ -55,5 +76,7 @@ namespace Product.Library
                 return password;
             }
         }
+
+
     }
 }

@@ -4,18 +4,19 @@ using System.Collections.Generic;
 
 namespace Product.Library
 {
-    class Order
+    internal class Order
     {
         // hold items and prices and additionally total
 
         public List<Product> ProductAndPriceList
-            // each item and price/cost
+        // each item and price/cost
         {
             get;
             set;
         }
 
-        public User WhoOrdered  // link each order to one specific customer
+        private User WhoOrdered  // link each order to one specific customer
+            // probably other people without access should not see who ordered what (protect privacy)
         {
             get;
 
@@ -32,7 +33,15 @@ namespace Product.Library
             // can total the prices to give the order total
 
             WhoOrdered = whoIsOrdering;
+            // also save Order on user to keep order history on each user
+            // each user should have an order history member
         }
+
+        private void AddOrderToHistory()
+            {
+            WhoOrdered.AddOrderToHistory(this);
+
+            }
 
         public decimal Total
         {
