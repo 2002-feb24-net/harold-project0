@@ -15,14 +15,14 @@ namespace Product.Library
             set;
         }
 
-        private User WhoOrdered  // link each order to one specific customer
+        /*private User WhoOrdered  // link each order to one specific customer
             // probably other people without access should not see who ordered what (protect privacy)
         {
             get;
 
             set;
-        }
-        public Order(Product productAndPrice, User whoIsOrdering)
+        }*/
+        public Order(Product productAndPrice)
         {
             ProductAndPriceList.Add(productAndPrice);
             // should add to a list of Dictionaries
@@ -32,16 +32,17 @@ namespace Product.Library
 
             // can total the prices to give the order total
 
-            WhoOrdered = whoIsOrdering;
+            // need to handle user linked to order in another method
             // also save Order on user to keep order history on each user
             // each user should have an order history member
         }
 
-        private void AddOrderToHistory()
+       /* need to decouple this class from user so deleted this method
+         ivate void AddOrderToHistory()
             {
             WhoOrdered.AddOrderToHistory(this);
 
-            }
+            }*/
 
         public decimal Total
         {

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Product.Library
 {
-    public class User
+    public abstract class User
     {
         private string Username
         {
@@ -29,7 +29,7 @@ namespace Product.Library
             
         }
 
-        public User(string username, string password )
+         public User(string username, string password)
         {
 
 
