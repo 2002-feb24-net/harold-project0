@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace Product.Library
 {
-    internal class Order
+    /*internal class Order
     {
         // hold items and prices and additionally total
 
@@ -15,13 +15,13 @@ namespace Product.Library
             set;
         }
 
-        /*private User WhoOrdered  // link each order to one specific customer
+        *//*private User WhoOrdered  // link each order to one specific customer
             // probably other people without access should not see who ordered what (protect privacy)
         {
             get;
 
             set;
-        }*/
+        }*//*
         public Order(Product productAndPrice)
         {
             ProductAndPriceList.Add(productAndPrice);
@@ -37,12 +37,12 @@ namespace Product.Library
             // each user should have an order history member
         }
 
-       /* need to decouple this class from user so deleted this method
+       *//* need to decouple this class from user so deleted this method
          ivate void AddOrderToHistory()
             {
             WhoOrdered.AddOrderToHistory(this);
 
-            }*/
+            }*//*
 
         public decimal Total
         {
@@ -62,5 +62,5 @@ namespace Product.Library
                 }
             }
         }
-    }
+    }*/
 }

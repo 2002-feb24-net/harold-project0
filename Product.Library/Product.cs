@@ -5,7 +5,7 @@ namespace Product.Library
 {
     public class Product
     {
-        // make an object to hold wings and prices, drinks and prices
+        // make an object to hold hot wings and price, cola drink and price
         public string Name { get; set; }
         public decimal Price { get; set; }
         
