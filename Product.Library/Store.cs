@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Restaurant.Library
 {
-    public class AStore
+    public class Store
     {
         string Location { get; set; }
 
