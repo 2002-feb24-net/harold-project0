@@ -2,8 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Product.Library;
 
-namespace Product.Library
+namespace Store.Library.SavingAndLoading
 {
     class RestaurantContext : DbContext
     {

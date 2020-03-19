@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace Product.Library
+namespace Restaurant.Library
 {
     /*internal class Order
     {

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Product.Library
+namespace Restaurant.Library
 {
     public abstract class User
     {

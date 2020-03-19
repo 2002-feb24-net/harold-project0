@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Product.Library
+namespace Restaurant.Library
 {
-    class Store
+    public class AStore
     {
         string Location { get; set; }
 
