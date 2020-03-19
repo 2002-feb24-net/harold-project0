@@ -6,30 +6,38 @@ namespace Product.Library
     public class Product
     {
         // make an object to hold wings and prices, drinks and prices
-        public Dictionary<string, decimal> ProductAndPrices
+        public Dictionary<string, decimal> ProductAndPrice
         {
             get
             {
-                return ProductAndPrices;
+                return ProductAndPrice;
             }
 
             set
             {
                 foreach (var entry in value)
                 {
-                    ProductAndPrices.Add(entry.Key, entry.Value);
+                    ProductAndPrice.Add(entry.Key, entry.Value);
                 }
             }
         }
-        public Product(Dictionary<string, decimal> productAndPrices)
+        public Product(Dictionary<string, decimal> productAndPrice)
         {
             // ex: Product wings = {spicy eight count, 10}, {mild eight count, 10}
-            ProductAndPrices = productAndPrices;
+            ProductAndPrice = productAndPrice;
             // never empty wings/drinks list bc in constructor
         }
 
+        // second constructor, build the dictionary
+
+        public Product(string product, decimal price)
+        {
+            ProductAndPrice.Add(product, price);
+        }
+
+
         //public Stock
 
-        
+
     }
 }
