@@ -6,37 +6,20 @@ namespace Product.Library
     public class Product
     {
         // make an object to hold wings and prices, drinks and prices
-        public Dictionary<string, decimal> ProductAndPrice
-        {
-            get
-            {
-                return ProductAndPrice;
-            }
+        public string Name { get; set; }
+        public decimal Price { get; set; }
+        
+        // previously had a dictionary, but the class already links Name and Price so do not need a dictionary
 
-            set
-            {
-                foreach (var entry in value)
-                {
-                    ProductAndPrice.Add(entry.Key, entry.Value);
-                }
-            }
-        }
-        public Product(Dictionary<string, decimal> productAndPrice)
+        public Product (string name, decimal price)
         {
-            // ex: Product wings = {spicy eight count, 10}, {mild eight count, 10}
-            ProductAndPrice = productAndPrice;
-            // never empty wings/drinks list bc in constructor
-        }
+            Name = name;
+            Price = price;
 
-        // second constructor, build the dictionary
-
-        public Product(string product, decimal price)
-        {
-            ProductAndPrice.Add(product, price);
+            //DecrementInventory();
         }
 
 
-        //public Stock
 
 
     }
