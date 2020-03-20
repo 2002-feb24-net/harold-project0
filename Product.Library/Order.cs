@@ -4,11 +4,11 @@ using System.Collections.Generic;
 
 namespace Restaurant.Library
 {
-    internal class Order
+    internal class Order : IOrder
     {
         // hold items and prices and additionally total
 
-        internal List<Product> AllProductsOnOrder
+        public List<Product> AllProductsOnOrder
         // each item and price/cost
         // each product ordered and its price
         {
@@ -16,7 +16,7 @@ namespace Restaurant.Library
             set;
         }
 
-        private User WhoOrdered  // link each order to one specific customer
+        public User WhoOrdered  // link each order to one specific customer
                                  // probably other people without access should not see who ordered what (protect privacy)
         {
             get;
@@ -54,5 +54,7 @@ namespace Restaurant.Library
                         Total += product.Price;
             }
         }
+
+        
     }
 }
