@@ -11,7 +11,7 @@ namespace Restaurant.Library
             get { return Username; }
             set { Username = InputUserValidation(value); }
         }
-        private string Password
+        protected string Password
         {
             get { return Password; }
             set { }
@@ -19,12 +19,12 @@ namespace Restaurant.Library
 
   
 
-        internal virtual string InputUserValidation(string username)
+        internal string InputUserValidation(string username)
         {
             if (username == ""
                 || username == null)
                 return "Error: username field is empty.";
-            else
+            else // if (UserIsUnique(username)) *FEATURE NOT YET IMPLEMENTED
             {
                 return username;
             }
@@ -52,6 +52,8 @@ namespace Restaurant.Library
                 return password;
             }
         }
+
+        // NOT YET IMPLEMENTED private bool UserIsUnique()
 
         /*     internal List<Order> OrderHistory
        {

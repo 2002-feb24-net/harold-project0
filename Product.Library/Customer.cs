@@ -15,21 +15,16 @@ namespace Restaurant.Library
             set { FullName = InputUserValidation(value); }
         }
 
-        internal override string InputUserValidation(string fullName)
-        {
-            if (fullName == ""
-                || fullName == null)
-                return "Error: username field is empty.";
-            else
-            {
-                return fullName;
-            }
+  
 
-        }
-
-        Customer( string fullname, string password)
+        Customer( string fullname, string uniqueUsername, string password)
+            // registers a customer
         {
-            
+            FullName = fullname;
+
+            Username = uniqueUsername;
+            Password = password;
+
         }
 
         static string SearchCustomerByName (string cname)
