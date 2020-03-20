@@ -24,6 +24,8 @@ namespace Restaurant.Library
             set;
         }
         public Order(Product productAndPrice, User userPlacingOrder)
+            // this only constructs an order with one product and price in it, but need a method to add additional products to order
+            // ensures there are no empty orders (bc that is nonsensical)
         {
             AllProductsOnOrder.Add(productAndPrice);
             // should add to a list of Dictionaries
@@ -39,6 +41,10 @@ namespace Restaurant.Library
             WhoOrdered = userPlacingOrder;
         }
 
+        public void AddToOrder(Product productAndPrice)
+        {
+            AllProductsOnOrder.Add(productAndPrice);
+        }
        
         // calculate sum of all products in the order
         public decimal Total
