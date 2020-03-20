@@ -6,7 +6,7 @@ namespace Restaurant.Library
 {
     public abstract class User
     {
-        private string Username
+        internal virtual string Username
         {
             get { return Username; }
             set { Username = InputUserValidation(value); }
@@ -17,33 +17,9 @@ namespace Restaurant.Library
             set { }
         }
 
-   /*     internal List<Order> OrderHistory
-        {
-            get { return OrderHistory; }
-            set { 
-            foreach (var newOrder in value)
-                {
-                    AddOrderToHistory(newOrder);
-                }
-            }
-            
-        }*/
+  
 
-         public User(string username, string password)
-        {
-
-
-        }
-
-        /*internal void AddOrderToHistory(Order newOrder)
-        {
-            if (newOrder != null)
-            {
-                OrderHistory.Add(newOrder);
-            }
-        }*/
-
-        private string InputUserValidation(string username)
+        internal virtual string InputUserValidation(string username)
         {
             if (username == ""
                 || username == null)
@@ -76,6 +52,32 @@ namespace Restaurant.Library
                 return password;
             }
         }
+
+        /*     internal List<Order> OrderHistory
+       {
+           get { return OrderHistory; }
+           set { 
+           foreach (var newOrder in value)
+               {
+                   AddOrderToHistory(newOrder);
+               }
+           }
+
+       }*/
+
+        /* public User(string username, string password)
+        {
+
+
+        }*/
+
+        /*internal void AddOrderToHistory(Order newOrder)
+        {
+            if (newOrder != null)
+            {
+                OrderHistory.Add(newOrder);
+            }
+        }*/
 
 
     }
