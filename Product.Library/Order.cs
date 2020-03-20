@@ -8,7 +8,7 @@ namespace Restaurant.Library
     {
         // hold items and prices and additionally total
 
-        internal List<Product> ProductAndPriceList
+        internal List<Product> AllProductsOrdered
         // each item and price/cost
         // each product ordered and its price
         {
@@ -25,7 +25,7 @@ namespace Restaurant.Library
         }
         public Order(Product productAndPrice, User userPlacingOrder)
         {
-            ProductAndPriceList.Add(productAndPrice);
+            AllProductsOrdered.Add(productAndPrice);
             // should add to a list of Dictionaries
             // Each dictionary has a product name (unique) and a potentionally duplicate price
 
@@ -50,7 +50,7 @@ namespace Restaurant.Library
 
             set
             {
-                foreach (var product in ProductAndPriceList)
+                foreach (var product in AllProductsOrdered)
                         Total += product.Price;
             }
         }
