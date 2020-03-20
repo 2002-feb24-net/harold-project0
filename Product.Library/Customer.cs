@@ -31,5 +31,11 @@ namespace Restaurant.Library
         {
             
         }
+
+        static string SearchCustomerByName (string cname)
+        {
+            //connect to database get loaded list
+            throw new NotImplementedException();
+        }
     }
 }
