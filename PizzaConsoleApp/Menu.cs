@@ -1,6 +1,6 @@
 using System;
 
-namespace PizzaConsoleApp
+namespace Restaurant.ConsoleApp
 {
     class Menu
     {

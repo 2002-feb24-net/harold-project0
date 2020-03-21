@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace PizzaConsoleApp   
+namespace Restaurant.ConsoleApp   
 {
     class Program
     {
