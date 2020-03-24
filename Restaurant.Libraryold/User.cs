@@ -6,12 +6,12 @@ namespace Restaurant.Library
 {
     public abstract class User
     {
-        public virtual string Username
+        internal virtual string Username
         {
             get { return Username; }
             set { Username = InputUserValidation(value); }
         }
-        public string Password
+        protected string Password
         {
             get { return Password; }
             set { }
@@ -19,19 +19,19 @@ namespace Restaurant.Library
 
   
 
-        public string InputUserValidation(string username)
+        internal string InputUserValidation(string username)
         {
-            /*if (username == ""
+            if (username == ""
                 || username == null)
                 return "Error: username field is empty.";
             else // if (UserIsUnique(username)) *FEATURE NOT YET IMPLEMENTED
-            {*/
+            {
                 return username;
-/*            }*/
+            }
 
         }
 
-        public string InputPasswordValidation(string password)
+        private string InputPasswordValidation(string password)
         {
             char[] specialCharacters = {'!', '@', '#',
                                         '$', '%', '^',

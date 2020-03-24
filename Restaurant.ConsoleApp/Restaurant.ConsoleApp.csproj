@@ -15,7 +15,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Restaurant.Library.SavingAndLoading\Restaurant.Library.SavingAndLoading.csproj" />
+    <ProjectReference Include="..\Restaurant.DataAccess\Restaurant.DataAccess.csproj" />
+    <ProjectReference Include="..\Restaurant.Library\Restaurant.Library.csproj" />
   </ItemGroup>
+
+ 
+
+ 
 
 </Project>

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Restaurant.Library.SavingAndLoading
+namespace Restaurant.Library
 {
     public class Class1
     {
