@@ -15,8 +15,7 @@ namespace Restaurant.Library
                          // probably other people without access should not see who ordered what (protect privacy)
         { get; set; }
 
-        // calculate sum of all products in the order
-        decimal Total { get;  set; }
+     
         
     }
 }

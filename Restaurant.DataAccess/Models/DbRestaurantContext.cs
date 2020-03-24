@@ -123,9 +123,12 @@ namespace Restaurant.DataAccess.Models
                     .HasMaxLength(50)
                     .IsFixedLength();
 
-                entity.Property(e => e.StreetAddress)
-                    .HasColumnName("Street Address")
-                    .HasMaxLength(50);
+                entity.Property(e => e.StoreName)
+                    .IsRequired()
+                    .HasMaxLength(50)
+                    .IsFixedLength();
+
+                entity.Property(e => e.StreetAddress).HasMaxLength(50);
 
                 entity.Property(e => e.Zipcode)
                     .HasMaxLength(5)

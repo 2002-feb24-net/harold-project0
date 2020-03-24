@@ -10,15 +10,26 @@ namespace Restaurant.ConsoleApp
         static void Main(string[] args)
         {
             Console.WriteLine("Hello World!");
-            //menu static call or object
+
+            Console.WriteLine("Place a new order");
+
+            // display all customers from database
+            
+        }
+
+        void AddCustomerToDB()
+        {
             Console.WriteLine("Add a customer");
             Console.WriteLine("Write full name");
             var input = Console.ReadLine();
             var newCustomer = new Customer(input);
             var CDAL = new CustomerDAL();
             CDAL.SaveCustomer(newCustomer);
+        }
 
-            // display all customers from database
+        void DisplayAllCustomersFromDB()
+        {
+            var CDAL = new CustomerDAL();
             var CustomersList = CDAL.LoadCustomers();
             foreach (var OneCustomers in CustomersList)
             {

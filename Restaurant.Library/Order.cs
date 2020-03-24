@@ -1,10 +1,11 @@
 
 using System;
 using System.Collections.Generic;
+using Restaurant.Interface;
 
 namespace Restaurant.Library
 {
-    internal class Order : IOrder
+    internal class Order : IOrder, IDataOrder
     {
         // hold items and prices and additionally total
 
@@ -47,7 +48,7 @@ namespace Restaurant.Library
         }
        
         // calculate sum of all products in the order
-        public decimal Total
+        public decimal? Total
         {
             get
             {
@@ -61,6 +62,8 @@ namespace Restaurant.Library
             }
         }
 
-        
+        public DateTime TimeOrdered { get; set; }
+        public int CustomerId { get; set; }
+        public int StoreId { get; set; }
     }
 }

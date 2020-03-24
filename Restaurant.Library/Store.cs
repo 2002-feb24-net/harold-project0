@@ -1,12 +1,18 @@
-﻿using System;
+﻿using Restaurant.Interface;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace Restaurant.Library
 {
-    public class Store
+    public class Store : IDataStore
     {
-        string Location { get; set; }
+        public string StreetAddress { get; set; }
+        public int StoreId { get; }
+        public string City { get; set; }
+        public string State { get; set; }
+        public string Zipcode { get; set; }
+        public string StoreName { get; set; }
 
         List<Product> ProductsSold { get; set; }
         // to avoid someone trying to order burgers from Pizza restaurant
