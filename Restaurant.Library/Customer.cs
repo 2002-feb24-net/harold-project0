@@ -17,7 +17,7 @@ namespace Restaurant.Library
             set;
         }
 
-  
+        public int CustomerId { get; }
 
         public Customer( string fullname/*, string uniqueUsername, string password*/)
             // registers a customer
