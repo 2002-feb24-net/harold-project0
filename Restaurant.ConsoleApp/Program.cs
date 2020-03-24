@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Restaurant.DataAccess;
+using Restaurant.DataAccess.Models;
 using Restaurant.Library;
 
 namespace Restaurant.ConsoleApp   
@@ -16,6 +17,9 @@ namespace Restaurant.ConsoleApp
             Console.WriteLine("All Customers in Database");
             DisplayAllCustomersFromDB();
             // display all customers from database
+
+
+            
             
         }
 
@@ -44,6 +48,8 @@ namespace Restaurant.ConsoleApp
             // do a while loop to keep asking for customer to buy product
             Console.WriteLine("Add an order");
             Console.WriteLine("Your store has the following to choose from");
+
+
 
             var SDAL = new StoreDAL();
             var ListOfStores = SDAL.LoadStores(); // need to load product ids for the specific store here instead. Placeholder

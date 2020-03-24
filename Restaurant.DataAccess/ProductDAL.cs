@@ -29,5 +29,56 @@ namespace Restaurant.DataAccess
             return context.Products.ToList();
 
         }
+
+        public List<int> LoadProductIDsFromStoreInStock(IDataStore store)
+        {
+            using DbRestaurantContext context = new DbRestaurantContext();
+
+
+            // inventory links to both products and store(s)
+            // filter by the store id
+            // select all products where storeid = store.storeID
+
+            var storeId = store.StoreId;
+
+            var productIDsInStock = from inventorys in context.Inventorys
+                                  where inventorys.StoreId == storeId
+                                  select inventorys.ProductId;
+
+            return new List<int>(productIDsInStock);
+            
+
+        }
+
+        public List<string> LoadProductNamesFromStoreInStock(IDataStore store)
+        {
+            using DbRestaurantContext context = new DbRestaurantContext();
+
+
+            // inventory links to both products and store(s)
+            // filter by the store id
+            // select all products where storeid = store.storeID
+
+            var storeId = store.StoreId;
+
+            var productIDsInStock = from inventorys in context.Inventorys
+                                    where inventorys.StoreId == storeId
+                                    select inventorys.ProductId;
+            // these are the product ids, but we need the names as well for most uses
+
+            /* IQueryable<string> productNamesInStock;
+             foreach (var productID in productIDsInStock)
+             {
+                 productNamesInStock = from products in context.Products where products.ProductId == productID select products.ProductName;
+             }
+
+             return new List<string>(productNamesInStock);
+
+              Error: list of strings stays empty*/
+
+            throw new NotImplementedException();
+
+
+        }
     }
 }

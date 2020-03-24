@@ -31,5 +31,7 @@ namespace Restaurant.DataAccess
             return context.Inventorys.ToList();
 
         }
+
+
     }
 }
