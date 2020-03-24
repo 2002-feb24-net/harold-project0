@@ -5,7 +5,7 @@ using Restaurant.Interface;
 
 namespace Restaurant.Library
 {
-    internal class Order : IOrder, IDataOrder
+    public class Order : IOrder, IDataOrder
     {
         // hold items and prices and additionally total
 
