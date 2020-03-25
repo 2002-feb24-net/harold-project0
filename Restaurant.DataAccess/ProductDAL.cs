@@ -75,7 +75,7 @@ namespace Restaurant.DataAccess
  
               Error: list of strings stays empty*/
 
-            throw new NotImplementedException();
+           /* throw new NotImplementedException();
 
 
         }*/

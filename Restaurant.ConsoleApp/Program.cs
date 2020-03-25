@@ -5,7 +5,7 @@ using Restaurant.DataAccess.Models;
 using Restaurant.Library;
 // Author: Haroldo Altamirano
 // TO BE IMPLEMENTED:
-// Exception handling, unit tests, order history, search of customers, order details table, secretconfiguration
+// Exception handling, unit tests, order history, search of customers, order details table, secretconfiguration, Total property on order
 
 // FOCUS:
 // SOLID
