@@ -5,7 +5,7 @@ using Restaurant.DataAccess.Models;
 using Restaurant.Library;
 // Author: Haroldo Altamirano
 // TO BE IMPLEMENTED:
-// Exception handling, unit tests, order history, search of customers, order details table, secretconfiguration, Total property on order
+// Exception handling, unit tests, order history, search of customers, order details table, secretconfiguration, inventory decrement on order placement
 
 // FOCUS:
 // SOLID
@@ -148,7 +148,7 @@ namespace Restaurant.ConsoleApp
 
 
             var newOrder = new Order(productToBeOrdered, customer);
-            string Total = Convert.ToString(newOrder.Total);
+            var Total =newOrder.Total;
             // Display total cost
             Console.WriteLine("Your order total is " + Total);
             Console.WriteLine("Do you confirm the purchase? (y/n)");

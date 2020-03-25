@@ -28,8 +28,8 @@ namespace Restaurant.Library
             // this only constructs an order with one product and price in it, but need a method to add additional products to order
             // ensures there are no empty orders (bc that is nonsensical)
         {
-            AllProductsOnOrder = new List<Product> (); // instantiate list
-            AllProductsOnOrder.Add(productAndPrice);
+            /*AllProductsOnOrder = new List<Product> (); // instantiate list
+            AllProductsOnOrder.Add(productAndPrice);*/
             // should add to a list of Dictionaries
             // Each dictionary has a product name (unique) and a potentionally duplicate price
 
@@ -40,8 +40,12 @@ namespace Restaurant.Library
             // need to handle user linked to order in another method
             // also save Order on user to keep order history on each user
             // each user should have an order history member
-            Total = 1;
-            WhoOrdered = userPlacingOrder;
+
+            /*WhoOrdered = userPlacingOrder;
+
+            foreach (var product in AllProductsOnOrder)
+                Total += product.Cost;*/
+            Total = productAndPrice.Cost;
         }
 
         public void AddToOrder(Product productAndPrice)
@@ -54,16 +58,13 @@ namespace Restaurant.Library
         private decimal? _total;
         public decimal? Total
         {
-            get
-            {
-                return _total;
-            }
+            get;
 
-            set
-            {
+            set;
+           /* { buggy
                 foreach (var product in AllProductsOnOrder)
                         _total += product.Cost;
-            }
+            }*/
         }
 
         public DateTime TimeOrdered { get; set; }
