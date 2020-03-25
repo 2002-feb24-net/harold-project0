@@ -5,7 +5,7 @@ using Restaurant.DataAccess.Models;
 using Restaurant.Library;
 // Author: Haroldo Altamirano
 // TO BE IMPLEMENTED:
-// Exception handling, unit tests, order history, search of customers, order details table
+// Exception handling, unit tests, order history, search of customers, order details table, secretconfiguration
 
 // FOCUS:
 // SOLID
@@ -18,6 +18,10 @@ using Restaurant.Library;
 //                          changing between stores in the program can be done in the first 30 seconds of execution
 // GIT
 //      Incremental development with frequent backups, commits only once code had no compile errors, task completed and WIP functionality noted in commits
+//      37 commits, separate from other repositories/unrelated files, deprecated projects deleted
+// Disposable connections
+//      connections to database are closed through using statements. Connections do not remain open for longer than a method call
+
 
 
 
