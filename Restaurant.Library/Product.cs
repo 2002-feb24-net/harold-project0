@@ -7,21 +7,21 @@ namespace Restaurant.Library
     public class Product : IDataProduct
     {
         // make an object to hold hot wings and price, cola drink and price
-        public string Name { get; set; }
-        public decimal Price { get; set; }
-        public int ProductId { get; }
+        public int ProductId { get; set; }
         public string ProductName { get; set; }
         public decimal? Cost { get; set; }
 
         // previously had a dictionary, but the class already links Name and Price so do not need a dictionary
 
-        public Product (string name, decimal price)
+        public Product (string name, decimal? price)
         {
-            Name = name;
-            Price = price;
+            ProductName = name;
+            Cost = price;
 
             //DecrementInventory();
         }
+
+
 
 
 

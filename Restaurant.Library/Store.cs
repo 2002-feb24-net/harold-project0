@@ -8,7 +8,7 @@ namespace Restaurant.Library
     public class Store : IDataStore
     {
         public string StreetAddress { get; set; }
-        public int StoreId { get; }
+        public int StoreId { get; set; }
         public string City { get; set; }
         public string State { get; set; }
         public string Zipcode { get; set; }

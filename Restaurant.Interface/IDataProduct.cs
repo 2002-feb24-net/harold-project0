@@ -6,7 +6,7 @@ namespace Restaurant.Interface
 {
     public interface IDataProduct
     {
-        public int ProductId { get; } // cannot set an identity column
+        public int ProductId { get; set; }
         public string ProductName { get; set; }
         public decimal? Cost { get; set; }
     }

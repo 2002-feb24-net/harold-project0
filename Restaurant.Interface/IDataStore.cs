@@ -6,7 +6,7 @@ namespace Restaurant.Interface
 {
     public interface IDataStore
     {
-        public int StoreId { get; } // can't set an identity column
+        public int StoreId { get; set; }
         public string StoreName { get; set; }
         public string StreetAddress { get; set; }
         public string City { get; set; }

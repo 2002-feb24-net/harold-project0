@@ -3,6 +3,7 @@ using Restaurant.DataAccess.Models;
 using Restaurant.Interface;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 
 namespace Restaurant.DataAccess
@@ -17,8 +18,12 @@ namespace Restaurant.DataAccess
             // add BusinessLogic Order to DBOrders
             O_Orders.CustomerId = customer.CustomerId;
             O_Orders.StoreId = store.StoreId;
+            O_Orders.Total = order.Total;
 
-            O_Orders.TimeOrdered = new DateTime();
+            string cultureForTime = "en-US";
+            var cultureInfo = new CultureInfo(cultureForTime);
+                var localDateTime = DateTime.Now;
+            O_Orders.TimeOrdered = DateTime.Now;
 
 
             context.Add(O_Orders);

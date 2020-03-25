@@ -18,6 +18,19 @@ namespace Restaurant.ConsoleApp
             DisplayAllCustomersFromDB();
             // display all customers from database
 
+            // login (pick a customer object)
+
+
+
+            // pick a store to shop from based on a list
+
+
+
+            var chosenStore = new Store();
+            chosenStore.StoreId = 1;
+            var customer = new Customer("Jonny water");
+            AddOrder(customer, chosenStore);
+
 
             
             
@@ -43,7 +56,7 @@ namespace Restaurant.ConsoleApp
             }
         }
 
-        void AddOrder(Customer customer, Store store)
+        static void AddOrder(Customer customer, Store store)
         {
             // do a while loop to keep asking for customer to buy product
             Console.WriteLine("Add an order");
@@ -51,24 +64,54 @@ namespace Restaurant.ConsoleApp
 
 
 
-            var SDAL = new StoreDAL();
-            var ListOfStores = SDAL.LoadStores(); // need to load product ids for the specific store here instead. Placeholder
-            foreach (var item in ListOfStores)
+            var PDAL = new ProductDAL();
+            var productIDsInStock = PDAL.LoadProductIDsFromStoreInStock(store); // need to load product ids for the specific store here
+
+            // select products where productid matches one of the items(ids) in the list
+            foreach (var productID in productIDsInStock)
             {
-                Console.WriteLine(item);
+                var Product_products = PDAL.LoadProductByID(productID);
+
+                //output list of products
+                Console.WriteLine(Product_products.ProductId + " " + Product_products.ProductName + " " + Product_products.Cost);
             }
             Console.Write("Select from the above...");
-            var product = Console.ReadLine();
+            Console.WriteLine("For example: 7");
+            var productIDChosen = Convert.ToInt32(Console.ReadLine());
+
+            // if input matches a product id TO BE IMPLEMENTED
+
+            // get product details and add/pass that to the order
+            var P_products = PDAL.LoadProductByID(productIDChosen);
+            var productToBeOrdered = new Product(P_products.ProductName, P_products.Cost);
 
 
-            // get product cost and add that to the order total
-            // placeholder hardcode for now
-            /*var productAndCost
 
-            var newOrder = new Order();
+            var newOrder = new Order(productToBeOrdered, customer);
+            string Total = Convert.ToString(newOrder.Total);
+            // Display total cost
+            Console.WriteLine("Your order total is " + Total);
+            Console.WriteLine("Do you confirm the purchase? (y/n)");
+            var input = Console.ReadLine();
 
+            if (input == "y" || input == "Y")
+            {
+                //save order in db
+                var oDAL = new OrderDAL();
+                oDAL.SaveOrder(newOrder, customer, store);
+            }
+            else
+            {
+                Console.WriteLine("Order cancelled.");
+                Console.WriteLine("You will not be charged");
+                return;
+            }
 
-            var ODAL = new OrderDAL();*/
+            /*static Customer Login()
+            {
+
+                //return 
+            }*/
             
         }
         

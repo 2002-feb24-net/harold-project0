@@ -4,7 +4,7 @@ namespace Restaurant.Interface
 {
     public interface ICustomer
     {
-        public int CustomerId { get; } // Can't set identity column
+        public int CustomerId { get; set; }
         string FullName{get; set;}
     }
 }

@@ -23,7 +23,7 @@ namespace Restaurant.DataAccess
             context.SaveChanges();
         }
 
-        public List<Products> LoadProducts()
+        public List<Products> LoadAllProducts()
         {
             using DbRestaurantContext context = new DbRestaurantContext();
             return context.Products.ToList();
@@ -79,6 +79,17 @@ namespace Restaurant.DataAccess
             throw new NotImplementedException();
 
 
+        }
+
+        public Products LoadProductByID(int productID)
+        {
+            using DbRestaurantContext context = new DbRestaurantContext();
+
+            var productMatched = from product in context.Products
+                                 where product.ProductId == productID
+                                 select product;
+
+            return productMatched.First();
         }
     }
 }
