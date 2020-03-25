@@ -8,7 +8,7 @@ using System.Linq;
 namespace Restaurant.DataAccess
 {
     public class StoreDAL
-        //customer data access library
+    //customer data access library
     {
         public void SaveStore(IDataStore store)
         {
@@ -26,11 +26,33 @@ namespace Restaurant.DataAccess
             context.SaveChanges();
         }
 
-        public List<Stores> LoadStores()
+        public void InitializeStore(Stores S_Stores, IDataStore store)
+        {
+            using DbRestaurantContext context = new DbRestaurantContext();
+            store.StoreName = S_Stores.StoreName;
+            store.StreetAddress = S_Stores.StreetAddress;
+            store.City = S_Stores.City;
+            store.State = S_Stores.State;
+            store.Zipcode = S_Stores.Zipcode;
+            store.StoreId = S_Stores.StoreId;
+        }
+
+        public List<Stores> LoadAllStores()
         {
             using DbRestaurantContext context = new DbRestaurantContext();
             return context.Stores.ToList();
 
+        }
+
+        public Stores LoadStoreByID(int storeID)
+        {
+            using DbRestaurantContext context = new DbRestaurantContext();
+
+            var storeMatched = from store in context.Stores
+                               where store.StoreId == storeID
+                               select store;
+
+            return storeMatched.First();
         }
     }
 }

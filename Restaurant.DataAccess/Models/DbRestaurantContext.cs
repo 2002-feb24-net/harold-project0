@@ -37,16 +37,37 @@ namespace Restaurant.DataAccess.Models
                 entity.HasKey(e => e.CustomerId)
                     .HasName("PK__Customer__A4AE64B802CFB926");
 
+                entity.HasIndex(e => e.Username)
+                    .HasName("UQ_Customer_Username")
+                    .IsUnique();
+
+                entity.HasIndex(e => new { e.Username, e.Password })
+                    .HasName("UQ_Customers")
+                    .IsUnique();
+
                 entity.Property(e => e.CustomerId).HasColumnName("CustomerID");
 
                 entity.Property(e => e.FullName)
                     .IsRequired()
                     .HasMaxLength(40);
+
+                entity.Property(e => e.Password)
+                    .IsRequired()
+                    .HasMaxLength(50);
+
+                entity.Property(e => e.Username)
+                    .IsRequired()
+                    .HasMaxLength(30)
+                    .IsUnicode(false);
             });
 
             modelBuilder.Entity<Inventorys>(entity =>
             {
                 entity.HasKey(e => e.InventoryId);
+
+                entity.HasIndex(e => new { e.ProductId, e.StoreId })
+                    .HasName("UQ_INVENTORYS")
+                    .IsUnique();
 
                 entity.Property(e => e.InventoryId).HasColumnName("InventoryID");
 

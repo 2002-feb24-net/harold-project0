@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using Restaurant.DataAccess;
 using Restaurant.Interface;
 
 namespace Restaurant.Library
@@ -19,11 +18,12 @@ namespace Restaurant.Library
 
         public int CustomerId { get; set; }
 
-        public Customer( string fullname/*, string uniqueUsername, string password*/)
-            // registers a customer
+        public Customer( string fullname, string uniqueUsername, string password)
+            // registers a customer, can load data from existing customer in db
         {
             FullName = fullname;
-
+            Username = uniqueUsername;
+            Password = password;
             /*Username = uniqueUsername;
             Password = password;*/
 

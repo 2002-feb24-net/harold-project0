@@ -1,32 +1,52 @@
+using Restaurant.DataAccess;
+using Restaurant.DataAccess.Models;
 using System;
 
 namespace Restaurant.ConsoleApp
 {
-    class Menu
+    public static class Menu
     {
-        static void DisplayMenu()
+        public static void UserMenu(Stores store)
         {
-            System.Console.WriteLine("Welcome to Backgammon pizza");
-            System.Console.WriteLine("Type an option:");
-            System.Console.WriteLine("1. New Order");
-            System.Console.WriteLine("2. Check Order");
-            // current pizza order, sign in
-            System.Console.WriteLine("3. See Past Orders");
-            System.Console.WriteLine("4. Nearest Location");
-            // return one option or a list
-            // Hardcoded for arlington?
-            string input = Console.ReadLine();
-            GuideInput(input);
-
-
+            Console.WriteLine($"Welcome to {store.StoreName}");
+            Console.WriteLine($"Located in {store.StreetAddress}");
+            Console.WriteLine($"{store.City}");
+            Console.WriteLine($"{store.State}");
+            Console.WriteLine($"{store.Zipcode}");
+            Console.WriteLine("Type an option:");
+            Console.WriteLine("1. Login");
+            Console.WriteLine("2. Register as New Customer");
         }
 
-        static void GuideInput(string input)
+        public static Stores StoreMenu()
+        {
+            Console.WriteLine("Displaying all stores");
+
+            // load all stores
+            var sDAL = new StoreDAL();
+            var listOfStores = sDAL.LoadAllStores();
+            foreach (var store in listOfStores)
+            {
+                Console.WriteLine(store.StoreId + " " + store.StoreName);
+                Console.WriteLine(store.StreetAddress);
+                Console.WriteLine(store.City + ", " + store.State + ", " + store.Zipcode);
+
+            }
+            Console.WriteLine("Please select a store");
+            var storeIDChosen = Convert.ToInt32(Console.ReadLine());
+
+            // load store by id to pass to other methods
+            var storeChosen = sDAL.LoadStoreByID(storeIDChosen);
+
+            return storeChosen;
+
+        }
+        /*static void GuideInput(string input)
         {
             input = ConvertInput(input);    // make input standardized to shorten conditional statements
             Switch(input);
         }
-
+*/
         static void Switch(string input)
         {
             switch (input)

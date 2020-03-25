@@ -6,15 +6,16 @@ namespace Restaurant.Library
 {
     public abstract class User
     {
+        protected string _userName;
+        protected string _password;
         public virtual string Username
         {
-            get { return Username; }
-            set { Username = InputUserValidation(value); }
+            get { return _userName; }
+            set { _userName = InputUserValidation(value); }
         }
         public string Password
         {
-            get { return Password; }
-            set { }
+            get; set;
         }
 
   
@@ -42,7 +43,7 @@ namespace Restaurant.Library
                 return "Error: password field is empty.";
             else if (password.Length < 9)
                 return "Error: password must be longer than 8 characters";
-            else if (password.IndexOfAny(specialCharacters) == -1)
+            else if (password.IndexOfAny(specialCharacters) < 0)
             { // method return -1 if none of those characters are in the string
                 return "Error: password must contain at least one special character" +
                     " (ex: ! @ # $ % ^ & *)";

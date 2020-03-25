@@ -20,10 +20,7 @@ namespace Restaurant.DataAccess
             O_Orders.StoreId = store.StoreId;
             O_Orders.Total = order.Total;
 
-            string cultureForTime = "en-US";
-            var cultureInfo = new CultureInfo(cultureForTime);
-                var localDateTime = DateTime.Now;
-            O_Orders.TimeOrdered = DateTime.Now;
+            O_Orders.TimeOrdered = DateTime.Now; // local time
 
 
             context.Add(O_Orders);

@@ -40,6 +40,7 @@ namespace Restaurant.Library
             // need to handle user linked to order in another method
             // also save Order on user to keep order history on each user
             // each user should have an order history member
+            Total = 1;
             WhoOrdered = userPlacingOrder;
         }
 

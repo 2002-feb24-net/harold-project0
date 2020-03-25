@@ -44,13 +44,13 @@ namespace Restaurant.DataAccess
             var productIDsInStock = from inventorys in context.Inventorys
                                   where inventorys.StoreId == storeId
                                   select inventorys.ProductId;
-
+            
             return new List<int>(productIDsInStock);
             
 
         }
 
-        public List<string> LoadProductNamesFromStoreInStock(IDataStore store)
+       /* public List<string> LoadProductNamesFromStoreInStock(IDataStore store)
         {
             using DbRestaurantContext context = new DbRestaurantContext();
 
@@ -72,14 +72,13 @@ namespace Restaurant.DataAccess
                  productNamesInStock = from products in context.Products where products.ProductId == productID select products.ProductName;
              }
 
-             return new List<string>(productNamesInStock);
-
+ 
               Error: list of strings stays empty*/
 
             throw new NotImplementedException();
 
 
-        }
+        }*/
 
         public Products LoadProductByID(int productID)
         {
