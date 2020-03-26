@@ -5,7 +5,11 @@ using Restaurant.DataAccess.Models;
 using Restaurant.Library;
 // Author: Haroldo Altamirano
 // TO BE IMPLEMENTED:
-// Exception handling, unit tests, order history, search of customers, order details table, secretconfiguration, inventory decrement on order placement
+// Exception handling, unit tests, order history, search of customers, order details table, secretconfiguration, inventory decrement on order placement, pick product quantity on order
+
+    // dbcontext.Customers.Where(condition)
+
+    // IMPLEMENTED FOR FRIDAY: SQL handles inventory decrement on order placement
 
 // FOCUS:
 // SOLID
