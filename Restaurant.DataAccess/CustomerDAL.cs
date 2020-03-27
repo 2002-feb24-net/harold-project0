@@ -49,7 +49,7 @@ namespace Restaurant.DataAccess
                            where username == customer.Username
                            && password == customer.Password
                            select customer.CustomerId;
-            var customerID = customerIDList.Single(); // unique combination so can return single, no duplicates possible from db
+            var customerID = customerIDList.FirstOrDefault(); // unique combination so can return single, no duplicates possible from db
             return customerID;
         }
     }

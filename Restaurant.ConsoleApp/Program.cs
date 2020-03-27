@@ -1,19 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 using Restaurant.DataAccess;
 using Restaurant.DataAccess.Models;
 using Restaurant.Library;
 // Author: Haroldo Altamirano
 // TO BE IMPLEMENTED:
-// Exception handling, unit tests, order history, search of customers, (search) order details table, secretconfiguration, inventory decrement on order placement, pick product quantity on order
+// Exception handling, unit tests, order history, search of customers, (search) order details table, secretconfiguration, inventory decrement on order placement, pick product quantity on order, 
 
 // dbcontext.Customers.Where(condition)
 
-// STILL TO BE IMPLEMENTED:
-// Exception handling, unit tests, order history, search of customers,  
 
-// IMPLEMENTED FOR FRIDAY: SQL handles inventory decrement on order placement, pick product quantity on order, shopping cart,  order details table
+
+// IMPLEMENTED FOR FRIDAY: SQL handles inventory decrement on order placement, pick product quantity on order, shopping cart (order multiple products in one order),  order details table, order history,  search of customers
 
 // FOCUS:
 // SOLID
@@ -29,6 +29,8 @@ using Restaurant.Library;
 //      37 commits, separate from other repositories/unrelated files, deprecated projects deleted
 // Disposable connections
 //      connections to database are closed through using statements. Connections do not remain open for longer than a method call
+// minor still to be implemented:
+// Exception handling, unit tests,
 
 
 
@@ -50,8 +52,8 @@ namespace Restaurant.ConsoleApp
                 loggedIn = false;
 
                 Menu.UserMenu(s_Stores);
-                var loginOrRegister = Convert.ToInt32(Console.ReadLine());
-                switch (loginOrRegister)
+                var loginOrRegisterOrSearch = Convert.ToInt32(Console.ReadLine());
+                switch (loginOrRegisterOrSearch)
                 {
                     case 1:
                         //login
@@ -64,7 +66,16 @@ namespace Restaurant.ConsoleApp
                         AddCustomerToDB(); // has prompts to get user details (name, username, password)
                         customer = Login();
                         loggedIn = true;
-
+                        break;
+                    case 3:
+                        // search for customers in one store
+                        var listOfCustomers = GetCustomers(store);
+                        Console.WriteLine($"Listing all customers for store {store.StoreId} {store.StoreName}");
+                        foreach (var cust in listOfCustomers)
+                        {
+                            Console.WriteLine($"ID. {cust.CustomerId} {cust.FullName}");
+                        }
+                        Console.WriteLine(); //new line
 
                         break;
                     default:
@@ -76,6 +87,8 @@ namespace Restaurant.ConsoleApp
             // place an order
             Console.WriteLine("Place an order");
             AddOrder(customer, store);
+            Console.WriteLine("Showing your order history");
+            ShowOrderHistory(customer);
             // 
 
 
@@ -96,6 +109,16 @@ namespace Restaurant.ConsoleApp
             // display all customers from database*/
         }
 
+        static HashSet<Customers> GetCustomers(Stores store)
+        {
+            using var context2 = new DbRestaurantContext();
+            var listOfCustomers = from order in context2.Orders join customer in context2.Customers
+                                  on order.CustomerId equals customer.CustomerId 
+                                  where order.StoreId == store.StoreId 
+                                  select customer;
+            HashSet<Customers> setOfCustomers = new HashSet<Customers> (listOfCustomers);
+            return setOfCustomers;
+        }
         static void AddCustomerToDB()
         {
             Console.WriteLine("Add a customer");
@@ -120,30 +143,50 @@ namespace Restaurant.ConsoleApp
                 Console.WriteLine(OneCustomers.FullName);
             }
         }
+        
+
 
         static void ShowOrderHistory(Customer customer)
         {
             using var context = new DbRestaurantContext();
 
-            var listOfOrders = context.Orders.Where(x => x.CustomerId == customer.CustomerId); // grab an type x where ==)
+            var listOfOrders = context.Orders.Where(x => x.CustomerId == customer.CustomerId).Include("Orderlines"); // grab an type x where ==)
 
+            var listOfProducts = from orderl in context.Orderlines 
+                                 join prd in context.Products on orderl.ProductId equals prd.ProductId 
+                                 where orderl.ProductId == prd.ProductId 
+                                 select prd;
+            listOfOrders.ToList();
+            listOfProducts.ToList();
+
+            Console.WriteLine($"{customer.FullName} ordered");
             foreach (var order in listOfOrders)
             {
-                Console.WriteLine($"{order.Customer.FullName} ordered");
+                Console.Write($"Order ID: {order.OrderId}\t");
+
+                /*foreach (var product in listOfProducts)
+                {
+                    Console.WriteLine($"{product.ProductName}/tcost per item: {product.Cost}");
+                }*/
                 foreach (var orderline in order.Orderlines)
                 {
-                    Console.WriteLine($"");
+
+                    
+                    Console.WriteLine($"Product code/id: {orderline.ProductId}/tQuantity purchased: {orderline.Quantity}");
                 }
+                Console.WriteLine($"Order Total = {order.Total}");
+
             }
         }
 
-        static void ShowOrderHistory(Store store)
+        /*static void ShowOrderHistory(Store store)
         {
 
-        }
+        }*/
 
         static void AddOrder(Customer customer, Stores store)
         {
+            // NOTE: REJECT ORDERLINE IF QUANTITY ORDERED IS MORE THAN QUANTITY IN INVENTORY
             // do a while loop to keep asking for customer to buy product
             Console.WriteLine("Add an order");
             Console.WriteLine("Your store has the following to choose from");

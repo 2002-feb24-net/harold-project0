@@ -16,6 +16,7 @@ namespace Restaurant.ConsoleApp
             Console.WriteLine("Type an option:");
             Console.WriteLine("1. Login");
             Console.WriteLine("2. Register as New Customer");
+            Console.WriteLine($"3. List customers for store ID: {store.StoreId}. {store.StoreName}");
         }
 
         public static Stores StoreMenu()
