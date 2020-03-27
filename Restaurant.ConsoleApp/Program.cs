@@ -106,6 +106,7 @@ namespace Restaurant.ConsoleApp
             bool quitFlag = false;
             while (quitFlag == false)
                 {
+                Menu.CustMenu(s_Stores, customer);
                 var loggedInOptions = Convert.ToInt32(Console.ReadLine());
 
                 switch (loggedInOptions)
