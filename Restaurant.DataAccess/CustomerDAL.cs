@@ -42,6 +42,17 @@ namespace Restaurant.DataAccess
             return customersMatched.First();
         }
 
+        public List<Customers> LoadCustomersByName(string fullName)
+        {
+            using DbRestaurantContext context = new DbRestaurantContext();
+
+            var customersMatched = from customer in context.Customers
+                                   where customer.FullName == fullName
+                                   select customer;
+
+            return customersMatched.ToList();
+        }
+
         public int GetCustomerID(string username, string password)
         {
             using DbRestaurantContext context = new DbRestaurantContext();

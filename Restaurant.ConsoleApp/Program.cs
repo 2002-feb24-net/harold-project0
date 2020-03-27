@@ -78,17 +78,64 @@ namespace Restaurant.ConsoleApp
                         Console.WriteLine(); //new line
 
                         break;
+                    case 4:
+                        // search customer by name
+                        Console.WriteLine("Enter a full name to search for");
+                        var fullName = Console.ReadLine();
+                        var cDAL = new CustomerDAL();
+                        var listOfMatchingCustomers = cDAL.LoadCustomersByName(fullName);
+                        if (listOfMatchingCustomers == null)
+                        {
+                            Console.WriteLine("No such customer(s) found");
+                            break;
+                        }
+                        Console.WriteLine($"All customers matching {fullName}");
+                        foreach (var cust in listOfMatchingCustomers)
+                        {
+                            Console.WriteLine($"ID= {cust.CustomerId}. {cust.FullName}/tusername = {cust.Username}");
+                        }
+                        break;
                     default:
-                        Console.WriteLine("Error: you must choose 1 or 2");
+                        Console.WriteLine("Error: you must choose 1 or 2 or 3 or 4");
                         break;
                 }
             } while (loggedIn == false);
             // now logged in with customer object
             // place an order
-            Console.WriteLine("Place an order");
-            AddOrder(customer, store);
-            Console.WriteLine("Showing your order history");
-            ShowOrderHistory(customer);
+            Menu.CustMenu(s_Stores, customer);
+            bool quitFlag = false;
+            while (quitFlag == false)
+                {
+                var loggedInOptions = Convert.ToInt32(Console.ReadLine());
+
+                switch (loggedInOptions)
+                {
+                    case 1:
+                        //login
+                        Console.WriteLine("Place an order");
+                        AddOrder(customer, store);
+
+                        break;
+                    case 2:
+                        //register
+                        Console.WriteLine("Showing your order history");
+                        ShowOrderHistory(customer);
+                        break;
+                   
+                    default:
+                        Console.WriteLine("Error: you must choose 1 or 2");
+                        break;
+
+
+                }
+                Console.WriteLine("Do you wish to quit? (y/n)?");
+                var input = Console.ReadLine();
+                if (input.ToLower() == "y")
+                    quitFlag = true;
+
+            }
+
+           
             // 
 
 
@@ -172,7 +219,7 @@ namespace Restaurant.ConsoleApp
                 {
 
                     
-                    Console.WriteLine($"Product code/id: {orderline.ProductId}/tQuantity purchased: {orderline.Quantity}");
+                    Console.WriteLine($"Product code/id: {orderline.ProductId}\tQuantity purchased: {orderline.Quantity}");
                 }
                 Console.WriteLine($"Order Total = {order.Total}");
 
@@ -391,12 +438,6 @@ namespace Restaurant.ConsoleApp
                 var ex = new System.InvalidOperationException();
             }*/
             return loggedInCustomer;
-
-
-
-
-
-
 
         }
 

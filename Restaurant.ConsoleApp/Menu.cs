@@ -1,5 +1,6 @@
 using Restaurant.DataAccess;
 using Restaurant.DataAccess.Models;
+using Restaurant.Library;
 using System;
 
 namespace Restaurant.ConsoleApp
@@ -8,6 +9,7 @@ namespace Restaurant.ConsoleApp
     {
         public static void UserMenu(Stores store)
         {
+            Console.WriteLine("======================================");
             Console.WriteLine($"Welcome to {store.StoreName}");
             Console.WriteLine($"Located in {store.StreetAddress}");
             Console.WriteLine($"{store.City}");
@@ -17,6 +19,21 @@ namespace Restaurant.ConsoleApp
             Console.WriteLine("1. Login");
             Console.WriteLine("2. Register as New Customer");
             Console.WriteLine($"3. List customers for store ID: {store.StoreId}. {store.StoreName}");
+            Console.WriteLine("4. Search customer by name");
+        }
+        public static void CustMenu(Stores store, Customer customer)
+        {
+            Console.WriteLine("======================================");
+            Console.WriteLine("Hi " + customer.FullName);
+            Console.WriteLine($"Welcome to {store.StoreName}");
+            Console.WriteLine($"Located in {store.StreetAddress}");
+            Console.WriteLine($"{store.City}");
+            Console.WriteLine($"{store.State}");
+            Console.WriteLine($"{store.Zipcode}");
+            Console.WriteLine("Type an option:");
+            Console.WriteLine("1. Place an Order");
+            Console.WriteLine("2. Check your order history");
+            
         }
 
         public static Stores StoreMenu()
