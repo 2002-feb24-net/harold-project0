@@ -17,6 +17,7 @@ namespace Restaurant.DataAccess.Models
 
         public virtual DbSet<Customers> Customers { get; set; }
         public virtual DbSet<Inventorys> Inventorys { get; set; }
+        public virtual DbSet<Orderlines> Orderlines { get; set; }
         public virtual DbSet<Orders> Orders { get; set; }
         public virtual DbSet<Products> Products { get; set; }
         public virtual DbSet<Stores> Stores { get; set; }
@@ -85,6 +86,30 @@ namespace Restaurant.DataAccess.Models
                     .WithMany(p => p.Inventorys)
                     .HasForeignKey(d => d.StoreId)
                     .HasConstraintName("FK_STORES_STOREID");
+            });
+
+            modelBuilder.Entity<Orderlines>(entity =>
+            {
+                entity.HasKey(e => e.OrderlineId)
+                    .HasName("PK__Orderlin__F8912DD240F319D2");
+
+                entity.Property(e => e.OrderlineId).HasColumnName("OrderlineID");
+
+                entity.Property(e => e.OrderId).HasColumnName("OrderID");
+
+                entity.Property(e => e.ProductId).HasColumnName("ProductID");
+
+                entity.HasOne(d => d.Order)
+                    .WithMany(p => p.Orderlines)
+                    .HasForeignKey(d => d.OrderId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_OL_ORDERS_ORDERID");
+
+                entity.HasOne(d => d.Product)
+                    .WithMany(p => p.Orderlines)
+                    .HasForeignKey(d => d.ProductId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_OL_PRODUCTS_PRODUCTID");
             });
 
             modelBuilder.Entity<Orders>(entity =>

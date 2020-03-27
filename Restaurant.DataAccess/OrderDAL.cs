@@ -27,11 +27,26 @@ namespace Restaurant.DataAccess
             context.SaveChanges();
         }
 
+        public void SaveOrder(Orders order, ICustomer customer, IDataStore store)
+        {
+            using DbRestaurantContext context = new DbRestaurantContext();
+            var O_Orders = new Orders();
+            // add BusinessLogic Order to DBOrders
+            O_Orders.CustomerId = customer.CustomerId;
+            O_Orders.StoreId = store.StoreId;
+            O_Orders.Total = order.Total;
+
+            O_Orders.TimeOrdered = DateTime.Now; // local time
+
+
+            context.Add(O_Orders);
+            context.SaveChanges();
+        }
+
         public List<Orders> LoadOrders()
         {
             using DbRestaurantContext context = new DbRestaurantContext();
-            return context.Orders.ToList();
-
+            return context.Orders.Include("Orderlines").Include("Customers").ToList();
         }
     }
 }

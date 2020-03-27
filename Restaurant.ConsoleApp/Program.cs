@@ -1,15 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Restaurant.DataAccess;
 using Restaurant.DataAccess.Models;
 using Restaurant.Library;
 // Author: Haroldo Altamirano
 // TO BE IMPLEMENTED:
-// Exception handling, unit tests, order history, search of customers, order details table, secretconfiguration, inventory decrement on order placement, pick product quantity on order
+// Exception handling, unit tests, order history, search of customers, (search) order details table, secretconfiguration, inventory decrement on order placement, pick product quantity on order
 
-    // dbcontext.Customers.Where(condition)
+// dbcontext.Customers.Where(condition)
 
-    // IMPLEMENTED FOR FRIDAY: SQL handles inventory decrement on order placement
+// STILL TO BE IMPLEMENTED:
+// Exception handling, unit tests, order history, search of customers,  
+
+// IMPLEMENTED FOR FRIDAY: SQL handles inventory decrement on order placement, pick product quantity on order, shopping cart,  order details table
 
 // FOCUS:
 // SOLID
@@ -37,8 +41,7 @@ namespace Restaurant.ConsoleApp
         {
             var s_Stores = Menu.StoreMenu(); // pick store
             var sDAL = new StoreDAL(); // access db about stores
-            Store store = new Store();
-            sDAL.InitializeStore(s_Stores, store);
+            Stores store = s_Stores;
    
             Customer customer = new Customer("default", "default", "default1231!");
             bool loggedIn;
@@ -79,8 +82,6 @@ namespace Restaurant.ConsoleApp
 
 
 
-            var chosenStore = new Store();
-            chosenStore.StoreId = 1;
             /*var customer = new Customer("Jonny water");*/
             /*AddOrder(customer, chosenStore);*/
 
@@ -120,7 +121,28 @@ namespace Restaurant.ConsoleApp
             }
         }
 
-        static void AddOrder(Customer customer, Store store)
+        static void ShowOrderHistory(Customer customer)
+        {
+            using var context = new DbRestaurantContext();
+
+            var listOfOrders = context.Orders.Where(x => x.CustomerId == customer.CustomerId); // grab an type x where ==)
+
+            foreach (var order in listOfOrders)
+            {
+                Console.WriteLine($"{order.Customer.FullName} ordered");
+                foreach (var orderline in order.Orderlines)
+                {
+                    Console.WriteLine($"");
+                }
+            }
+        }
+
+        static void ShowOrderHistory(Store store)
+        {
+
+        }
+
+        static void AddOrder(Customer customer, Stores store)
         {
             // do a while loop to keep asking for customer to buy product
             Console.WriteLine("Add an order");
@@ -139,30 +161,72 @@ namespace Restaurant.ConsoleApp
                 //output list of products
                 Console.WriteLine(Product_products.ProductId + " " + Product_products.ProductName + " " + Product_products.Cost);
             }
-            Console.Write("Select from the above...");
-            Console.WriteLine("For example: 7");
-            var productIDChosen = Convert.ToInt32(Console.ReadLine());
+            var newOrder = new Orders();
+            newOrder.Total = 0; // need a value to do =+
+            newOrder.StoreId = store.StoreId; // order has to be at a specific store. Store was selected above
+            newOrder.CustomerId = customer.CustomerId;  // order has to be placed by a customer. customer passed above
 
-            // if input matches a product id TO BE IMPLEMENTED
+            using var ctx = new DbRestaurantContext();
+            var ListOfallOrderIDs = from order in ctx.Orders select order.OrderId;
+            var newOrderID = ListOfallOrderIDs.Max() + 1;
 
-            // get product details and add/pass that to the order
-            var P_products = PDAL.LoadProductByID(productIDChosen);
-            var productToBeOrdered = new Product(P_products.ProductName, P_products.Cost);
+            bool doneOrdering = false;
+            using var context = new DbRestaurantContext();
+
+            context.Orders.Add(newOrder);
+            newOrder.TimeOrdered = DateTime.Now;
+            context.SaveChanges();
+
+            while (doneOrdering == false) // buy several products
+            {
+                Console.Write("Select from the above...");
+                Console.WriteLine("For example: 7");
+                var productIDChosen = Convert.ToInt32(Console.ReadLine());
+
+                Console.WriteLine("How many would you like to buy?");
+                int pQuantity = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine("Stop ordering? (y/n)");
+                var yN = Console.ReadLine();
+                if (yN == "y")
+                    doneOrdering = true;
+                // if input matches a product id TO BE IMPLEMENTED
+
+                // get product details and add/pass that to the order
+                var productToBeOrdered = PDAL.LoadProductByID(productIDChosen);
 
 
 
-            var newOrder = new Order(productToBeOrdered, customer);
-            var Total =newOrder.Total;
+                
+                var newOrderline = new Orderlines()
+                {
+                    ProductId = productIDChosen,
+                    Quantity = pQuantity,
+                    OrderId = newOrderID
+                    
+                };
+                
+                newOrder.Total += productToBeOrdered.Cost * pQuantity;
+                context.Orderlines.Add(newOrderline);
+                
+            }
+
+
+
+
             // Display total cost
-            Console.WriteLine("Your order total is " + Total);
+            Console.WriteLine("Your order total is " + newOrder.Total);
             Console.WriteLine("Do you confirm the purchase? (y/n)");
             var input = Console.ReadLine();
 
             if (input == "y" || input == "Y")
             {
                 //save order in db
-                var oDAL = new OrderDAL();
-                oDAL.SaveOrder(newOrder, customer, store);
+                /*var oDAL = new OrderDAL();
+                oDAL.SaveOrder(newOrder, customer, store);*/
+                // put the order time
+                
+                context.SaveChanges();
+
             }
             else
             {
@@ -172,6 +236,91 @@ namespace Restaurant.ConsoleApp
             }
             
         }
+
+       /* static void AddOrder(Customer customer, Stores store)
+        {
+            // do a while loop to keep asking for customer to buy product
+            Console.WriteLine("Add an order");
+            Console.WriteLine("Your store has the following to choose from");
+
+
+
+            var PDAL = new ProductDAL();
+            var productIDsInStock = PDAL.LoadProductIDsFromStoreInStock(store); // need to load product ids for the specific store here
+
+            // select products where productid matches one of the items(ids) in the list
+            foreach (var productID in productIDsInStock)
+            {
+                var Product_products = PDAL.LoadProductByID(productID);
+
+                //output list of products
+                Console.WriteLine(Product_products.ProductId + " " + Product_products.ProductName + " " + Product_products.Cost);
+            }
+            var newOrder = new Orders();
+            newOrder.Total = 0; // need a value to do =+
+            newOrder.Store = store; // order has to be at a specific store. Store was selected above
+
+            bool doneOrdering = false;
+            using var context = new DbRestaurantContext();
+            while (doneOrdering == false) // buy several products
+            {
+                Console.Write("Select from the above...");
+                Console.WriteLine("For example: 7");
+                var productIDChosen = Convert.ToInt32(Console.ReadLine());
+
+                Console.WriteLine("How many would you like to buy?");
+                int pQuantity = Convert.ToInt32(Console.ReadLine());
+                Console.WriteLine("Stop ordering? (y/n)");
+                var yN = Console.ReadLine();
+                if (yN == "y")
+                    doneOrdering = true;
+                // if input matches a product id TO BE IMPLEMENTED
+
+                // get product details and add/pass that to the order
+                var productToBeOrdered = PDAL.LoadProductByID(productIDChosen);
+
+
+
+
+                var newOrderline = new Orderlines()
+                {
+                    ProductId = productIDChosen,
+                    Quantity = pQuantity,
+                    OrderId = newOrder.OrderId
+
+                };
+                newOrder.Orderlines.Add(newOrderline);
+                newOrder.Total += productToBeOrdered.Cost * pQuantity;
+                context.Add(newOrder);
+            }
+
+
+
+
+            // Display total cost
+            Console.WriteLine("Your order total is " + newOrder.Total);
+            Console.WriteLine("Do you confirm the purchase? (y/n)");
+            var input = Console.ReadLine();
+
+            if (input == "y" || input == "Y")
+            {
+                //save order in db
+                *//*var oDAL = new OrderDAL();
+                oDAL.SaveOrder(newOrder, customer, store);*//*
+                // put the order time
+                newOrder.TimeOrdered = DateTime.Now;
+                context.SaveChanges();
+
+            }
+            else
+            {
+                Console.WriteLine("Order cancelled.");
+                Console.WriteLine("You will not be charged");
+                return;
+            }
+
+        }*/
+
         static Customer Login()
         {
             /*try
