@@ -109,11 +109,12 @@ namespace Restaurant.ConsoleApp
                 Menu.CustMenu(s_Stores, customer);
 
                 bool GoodNumber = false;
+                var loggedInOptions =0;
                 while (!GoodNumber)
                 {
                     try
                     {
-                        var loggedInOptions = Convert.ToInt32(Console.ReadLine());
+                        loggedInOptions = Convert.ToInt32(Console.ReadLine());
                         GoodNumber = true;
                     }
                     catch (Exception)
