@@ -123,7 +123,7 @@ namespace Restaurant.ConsoleApp
                     }
                 }
 
-                switch (loggedInOptions)
+                switch (loggedInOptions) // strings of numbers (to avoid exceptions when converting to switch statement condition")
                 {
                     case 1:
                         //login
