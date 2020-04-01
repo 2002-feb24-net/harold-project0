@@ -107,17 +107,31 @@ namespace Restaurant.ConsoleApp
             while (quitFlag == false)
                 {
                 Menu.CustMenu(s_Stores, customer);
-                var loggedInOptions = Console.ReadLine();
+
+                bool GoodNumber = false;
+                var loggedInOptions =0;
+                while (!GoodNumber)
+                {
+                    try
+                    {
+                        loggedInOptions = Convert.ToInt32(Console.ReadLine());
+                        GoodNumber = true;
+                    }
+                    catch (Exception)
+                    {
+                        Console.WriteLine("That is not a number!");
+                    }
+                }
 
                 switch (loggedInOptions) // strings of numbers (to avoid exceptions when converting to switch statement condition")
                 {
-                    case "1":
+                    case 1:
                         //login
                         Console.WriteLine("Place an order");
                         AddOrder(customer, store);
 
                         break;
-                    case "2":
+                    case 2:
                         //register
                         Console.WriteLine("Showing your order history");
                         ShowOrderHistory(customer);
