@@ -107,7 +107,20 @@ namespace Restaurant.ConsoleApp
             while (quitFlag == false)
                 {
                 Menu.CustMenu(s_Stores, customer);
-                var loggedInOptions = Convert.ToInt32(Console.ReadLine());
+
+                bool GoodNumber = false;
+                while (!GoodNumber)
+                {
+                    try
+                    {
+                        var loggedInOptions = Convert.ToInt32(Console.ReadLine());
+                        GoodNumber = true;
+                    }
+                    catch (Exception)
+                    {
+                        Console.WriteLine("That is not a number!");
+                    }
+                }
 
                 switch (loggedInOptions)
                 {
