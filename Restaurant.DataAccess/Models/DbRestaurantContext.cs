@@ -1,6 +1,8 @@
 ﻿using System;
+using System.IO;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.Extensions.Configuration;
 
 namespace Restaurant.DataAccess.Models
 {
@@ -24,10 +26,16 @@ namespace Restaurant.DataAccess.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            var config = new ConfigurationBuilder()
+                                  .SetBasePath(Directory.GetCurrentDirectory())
+                                  .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true);
+
+            
+            var Configuration = config.Build();
+            string conn = Configuration["ConnectionStrings:DbRestaurantContext"];
             if (!optionsBuilder.IsConfigured)
             {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                optionsBuilder.UseSqlServer("Server=tcp:2002-training-altamirano.database.windows.net,1433;Initial Catalog=DbRestaurant;Persist Security Info=False;User ID=haroldo;Password=EllieIs#1;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
+                optionsBuilder.UseSqlServer(conn);
             }
         }
 
